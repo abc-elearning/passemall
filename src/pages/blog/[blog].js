@@ -192,4 +192,5 @@ export async function getServerSideProps(context) {
     const newInfo = await res.json();
     return { props: { newInfo: newInfo, url: context.req.url } }
 }
+
 export default Blog;

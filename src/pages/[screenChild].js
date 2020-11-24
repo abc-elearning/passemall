@@ -6,15 +6,15 @@ import React, { useEffect } from 'react';
 import ReactGA from 'react-ga';
 import { Provider, useStore } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import SEO from '../../components/SEO';
-import { APP_NEW_DOMAIN, GA_ID } from "../../config_app";
-import { wrapper } from '../../redux/store';
-import Routes from '../../routes';
-import { callApi } from '../../services';
-import { oldUser, setScrollDownAuto } from '../../utils';
-const StudyViewScreen = dynamic(() => import('../../container/study/Study.View'), { ssr: false })
-const TestViewScreen = dynamic(() => import('../../container/test/Test.View'), { ssr: false })
-const ReviewViewScreen = dynamic(() => import('../../container/review/Review.View'), { ssr: false })
+import SEO from '../components/SEO';
+import { APP_NEW_DOMAIN, GA_ID } from "../config_app";
+import { wrapper } from '../redux/store';
+import Routes from '../routes';
+import { callApi } from '../services';
+import { oldUser, setScrollDownAuto } from '../utils';
+const StudyViewScreen = dynamic(() => import('../container/study/Study.View'), { ssr: false })
+const TestViewScreen = dynamic(() => import('../container/test/Test.View'), { ssr: false })
+const ReviewViewScreen = dynamic(() => import('../container/review/Review.View'), { ssr: false })
 
 ReactGA.initialize(GA_ID);
 const GameChildScreen = ({ appInfoState, url }) => {
@@ -47,35 +47,29 @@ const GameChildScreen = ({ appInfoState, url }) => {
     )
 }
 
-export async function getStaticProps(context) {
-    const { appNameId } = context.params;
-    const appInfoState = await callApi({ url: '/data?type=get_app_info&appNameId=' + appNameId, params: null, method: 'post' })
+// export async function getStaticProps(context) {
+//     const appNameId = APP_NEW_DOMAIN || context.params.appNameId;
+//     const appInfoState = await callApi({ url: '/data?type=get_app_info&appNameId=' + appNameId, params: null, method: 'post' })
+//     return {
+//         props: {
+//             appInfoState: appInfoState
+//         }
+//     }
+// }
 
+export async function getServerSideProps(context) {
+    console.log("screen child")
+    const appNameId = APP_NEW_DOMAIN || context.params.appNameId;
+    const appInfoState = await callApi({ url: '/data?type=get_app_info&appNameId=' + appNameId, params: null, method: 'post' })
+    let url = context.req.headers.referer;
     return {
         props: {
-            appInfoState: appInfoState
+            appInfoState: appInfoState ? appInfoState : {},
+            url: url ? url : '',
         }
     }
-
 }
 
-export async function getStaticPaths() {
-    const directorytopicNameId = path.join(process.cwd(), 'src/data/topicNameId.json')
-    let topicNameIdFile = fs.readFileSync(directorytopicNameId);
-    let topicNameIdJson = JSON.parse(topicNameIdFile)
-    let arrayTopicNameId = [];
-    for (let appNameId in topicNameIdJson) {
-        topicNameIdJson[appNameId].forEach(ele => {
-            arrayTopicNameId.push({ params: { appNameId: appNameId, screenChild: ele } });
-        })
-        arrayTopicNameId.push({ params: { appNameId: appNameId, screenChild: "review" } });
-        arrayTopicNameId.push({ params: { appNameId: appNameId, screenChild: "test" } });
-    }
-    return {
-        paths: arrayTopicNameId,
-        fallback: false
-    };
-}
 function ScreenChild({ appInfoState }) {
     if(APP_NEW_DOMAIN){
         const router = useRouter();
