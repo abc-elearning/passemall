@@ -13,7 +13,7 @@ function MyApp(props) {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
-    if(typeof window !== 'undefined'){
+    if (typeof window !== 'undefined') {
       const { register } = require('../serviceWorker');
       register();
     }
@@ -26,4 +26,5 @@ function MyApp(props) {
   );
 }
 
-export default wrapper.withRedux(MyApp)
+export default MyApp;
+// export default wrapper.withRedux(MyApp)
