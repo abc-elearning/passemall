@@ -3,11 +3,10 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import path from "path";
 import React, { useEffect } from 'react';
-import ReactGA from 'react-ga';
 import { Provider, useStore } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import SEO from '../../components/SEO';
-import { APP_NEW_DOMAIN, GA_ID } from "../../config_app";
+import { APP_NEW_DOMAIN } from "../../config_app";
 import ErrorPage from '../../container/error';
 import Routes from '../../routes';
 import { oldUser, setScrollDownAuto } from '../../utils';
@@ -15,7 +14,6 @@ const StudyViewScreen = dynamic(() => import('../../container/study/Study.View')
 const TestViewScreen = dynamic(() => import('../../container/test/Test.View'), { ssr: false })
 const ReviewViewScreen = dynamic(() => import('../../container/review/Review.View'), { ssr: false })
 
-ReactGA.initialize(GA_ID);
 const GameChildScreen = ({ appInfo, url, topicId }) => {
     if(!appInfo || Object.keys(appInfo).length === 0 && appInfo.constructor === Object){
         return <ErrorPage title="Not found app" />

@@ -14,6 +14,7 @@ import SelectStatePopup from '../../components/SelectStatePopup';
 import SelectTopicPopUp from '../../components/SelectTopicPopUp';
 import { LoadingWidget } from '../../components/Widgets';
 import Config from '../../config';
+import { GA_ID } from '../../config_app';
 import { scrollToTop } from '../../models/Utils';
 import { endTest, getTestInfoByAppId, getTestInfoByAppIdAndParentId, getTopicsByParentId, setTestInfoPlaying } from "../../redux/actions/index";
 import { CongratulationAlert } from "../game/Game.ViewTS";

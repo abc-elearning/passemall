@@ -9,7 +9,7 @@ import Footer from '../../components/Footer';
 import HeaderMenu from '../../components/HeaderMenu';
 import { LoadingWidget } from '../../components/Widgets';
 import Config from '../../config';
-import { APP_NEW_DOMAIN } from '../../config_app';
+import { APP_NEW_DOMAIN, GA_ID } from '../../config_app';
 import { resetTopicProgress, updateTopicsProgress } from '../../redux/actions';
 import { getCardsByParentId } from '../../redux/actions/card';
 import { onContinue, resetQuestionProgress } from '../../redux/actions/game';

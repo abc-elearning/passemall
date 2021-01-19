@@ -12,6 +12,7 @@ import HeaderMenu from '../../components/HeaderMenu';
 import Image from '../../components/Image';
 import { LoadingWidget } from '../../components/Widgets';
 import Config from '../../config';
+import { GA_ID } from '../../config_app';
 import ReviewProgress from '../../models/ReviewProgress';
 import { scrollToTop } from '../../models/Utils';
 import { getAllCardProgress } from '../../redux/actions/cardProgress';
