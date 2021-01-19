@@ -7,9 +7,10 @@ import { parse } from 'node-html-parser';
 import path from "path";
 import React, { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
-import ReactHtmlParser from 'react-html-parser';
+import HtmlParser from 'react-html-parser';
 import LazyLoad from 'react-lazyload';
 import Slider from 'react-slick';
+import { setTimeout } from 'timers';
 import JsonLD from '../../components/JsonLD';
 import FooterPanel from '../../components/new/FooterPanel';
 import SEO from '../../components/SEO';
@@ -27,6 +28,7 @@ const useStyles = makeStyles({
                 background: "url('"+encodeURI(props.bannerUrl)+"') no-repeat",
                 backgroundSize: "cover",
                 height: "80%",
+                minHeight: "600px"
             }
         }
         return {
@@ -280,7 +282,7 @@ const PostContent = ({ content, appInfo }) => {
                 </div> 
             </Grid> : null}
             <Grid item container xs={12} sm={hasMenu ? 9 : 12} id={elementId}>
-                {ReactHtmlParser(content)}
+                {HtmlParser(content)}
             </Grid>
         </Grid>
         <div style={{ padding: "20px 0" }}>

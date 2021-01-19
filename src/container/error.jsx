@@ -1,6 +1,7 @@
 import { Container } from "@material-ui/core"
 import { useEffect } from "react";
 import ReactGA from 'react-ga';
+import { GA_ID } from "../config_app";
 
 ReactGA.initialize(GA_ID);
 
